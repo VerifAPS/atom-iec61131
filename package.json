@@ -1,0 +1,26 @@
+{
+  "name": "iec61131",
+  "main": "./lib/iec61131",
+  "version": "0.0.1",
+  "description": "Syntax highlightning for Structured Text and Sequential Function Chart",
+  "keywords": [
+  ],
+  "activationCommands": {
+    "atom-workspace": "iec61131:toggle"
+  },
+  "language_grammars": ["./grammars/iec61131.cson"],
+  "repository": "https://github.com/VerifAPS/atom-iec61131",
+  "license": "GPLv3+",
+  "engines": {
+    "atom": ">=1.4.0 <2.0.0"
+  },
+  "providedServices": {
+    "linter": {
+      "versions": {
+        "2.0.0": "provideLinter"
+      }
+    }
+  },
+  "dependencies": {
+  }
+}

@@ -1,0 +1,163 @@
+# TextMate tutorial: http://manual.macromates.com/en/language_grammars
+
+# Regex to convert keys to unquoted:
+# '(include|match|captures|begin|end|beginCaptures|endCaptures|name|patterns|0|1|2|3|4|5|6|7|8|9|comment|fileTypes|scopeName|repository|contentName|firstLineMatch|foldingStartMarker|foldingStopMarker)':
+
+scopeName: 'source.iec61131' # <scope> should be a short, unique indicator for the language ("js", "php", "c", etc.)
+name: 'IEC61131' # The title that will show up in grammar selection and on your status bar.
+fileTypes: [ # An array of file extensions.
+  'st'
+  'iec61131'
+]
+#firstLineMatch: '' # A regular expression that is matched against the first line of the document when Atom is trying to decide if the grammar is appropriate. Useful for shell scripts, mostly.
+# currently useless:
+#foldingStartMarker: '(?i)^(\\s*)?(FUNCTION(_BLOCK)?|PROGRAM|VAR(_(INPUT|OUTPUT|GLOBAL|EXTERNAL|ACCESS))?|CLASS|METHOD|ACTION).\\*' # A regular expression that checks for the start of a foldable area (such as `{`).
+#foldingStopMarker: '(?i)^(\\s*)?END_(FUNCTION(_BLOCK)?|VAR|PROGRAM|FUNCTION|CLASS|METHOD|ACTION).\\*' # A regular expression that checks for the end of a foldable area (such as `}`). If both folding markers are matched in the same line, there will be no foldable area.
+patterns: [
+  {
+    begin: '/[*]'
+    end: '[*]/'
+    name: 'multiline.comment.java'
+    contentName: 'comment'
+  }
+  {
+    begin: '\\([*]'
+    end: '[*]\\)'
+    name: 'multiline.comment.pascal'
+    contentName: 'comment'
+  }
+  {
+    begin: '//'
+    end: '$'
+    name: 'singleline.comment'
+    contentName: 'comment'
+  }
+  {
+    begin: '\\{'
+    end: '\\}'
+    name: 'variable.tag'
+    contentName: 'variable.tag'
+  }
+  {
+      begin: '"'
+      end: '"'
+      name: 'string.quoted.double'
+      contentName: 'string.quoted.double'
+      patterns: [
+        {
+            match: "\\$(L|N|P|R|T\\$|')"
+            name: 'constant.character.escape'
+        }
+      ]
+  }
+  {
+    begin: "'"
+    end: "'"
+    name: 'string.quoted.single'
+    contentName: 'string.quoted.single'
+    patterns: [
+      {
+          match: "\\$(L|N|P|R|T\\$|')"
+          name: 'constant.character.escape'
+      }
+    ]
+  }
+  {  #TIME_LITERAL
+    match: "(?i)(TIME|T)#((\\d+(.\\d+)?)(D|H|M|S|MS))+"
+    name: "constant.time"
+  }
+  {#DATE_AND_TIME
+   match: "(DATE_AND_TIME|DT)#\\d+-\\d+-\\d+-(\\d?\\d)(:(\\d?\\d))?(:(\\d?\\d))?(\\.\\d*)?"
+   name: "constant.date_and_time"
+  }
+  {# time of day
+   match: '(?i)(TIME_OF_DAY|TOD)#(\\d\\d)(:(\\d\\d))?(:(\\d\\d))?(\\.\\d+)?'
+   name: "constant.time_of_day"
+  }
+  { #date literal
+    match: "(?i)(DATE|D)#\\d+-\\d+-\\d+"
+    name: "constant.date"
+  }
+  {
+    match: '(?i)(U?[LDS]?INT#)?(10#)?([0-9_]+)'
+    name: 'constant.numeric.decimal'
+  }
+  {
+    match: '(?i)(U?[LDS]?INT#)?2#([01_]+)'
+    name: 'constant.numeric.binary'
+  }
+  {
+    match: '(?i)(U?[LDS]?INT#)?8#([0-7_]+)'
+    name: 'constant.numeric.octal'
+  }
+  {
+    match: '(?i)(U?[LDS]?INT#)?16#([0-9a-f_]+)'
+    name: 'constant.numeric.hex'
+  }
+  {
+    match: '(?i)(L?REAL#)?([_0-9]+)?(\\.[_0-9]+)(E-?[0-9_]+)?'
+    name: 'constant.numeric.real'
+  }
+  {
+    match: '(?i)\\b(VAR_OUTPUT|AT|BY|CASE|CONFIGURATION|CONSTANT|DATE|DO|DT|ELSE|ELSEIF|END_CASE|END_CONFIGURATION|END_FOR|END_FUNCTION|END_FUNCTION_BLOCK|END_IF|END_PROGRAM|END_REPEAT|END_RESOURCE|END_STRUCT|END_TYPE|END_VAR|END_WHILE|EXIT|FOR|FUNCTION_BLOCK|FUNCTION|F_EDGE|IF|INTERVAL|NIL|NON_RETAIN|OF|PRIORITY|PROGRAM|READ_ONLY|READ_WRITE|REPEAT|RESOURCE|RETURN|R_EDGE|STRUCT|TASK|THEN|TO|TYPE|UNTIL|VAR|VAR_ACCESS|VAR_CONFIG|VAR_EXTERNAL|VAR_GLOBAL|VAR_INPUT|VAR_IN_OUT|VAR_TEMP|WHILE|WITH|INTERFACE|END_INTERFACE|METHOD|END_METHOD|CLASS|END_CLASS|OVERRIDE|FINAL|ABSTRACT|IMPLEMENTS|PUBLIC|INTERNAL|PROTECTED|PRIVATE|SUPER|THIS|EXTENDS|REF_TO|ON|STEP|END_STEP|INITIAL_STEP|ACTION|END_ACTION|FROM|END_TRANSITION|TRANSITION)\\b'
+    name: "keyword"
+  }
+  {
+    match: '(?i)ARRAY|ANY|ANY_BIT|ANY_DATE|ANY_DERIVED|ANY_ELEMENTARY|ANY_INT|ANY_MAGNITUDE|ANY_NUM|ANY_REAL|ANY_STRING|BOOL|BYTE|DATE_AND_TIME|[LD]?INT|[LD]?WORD|L?REAL|W?STRING|TIME|TIME_OF_DAY|TOD|WSTRING'
+    name: 'datatypes.tag'
+  }
+]
+
+# AND
+# '=>'
+# ':='
+# 'REF='
+#   '?='
+# '/'
+# '='
+# '>='
+# '>'
+# '<='
+# '<'
+# '-'
+# MOD
+# '*'
+# NOT
+# '<>'
+# OR
+# '+'
+# '**'
+# XOR
+#
+
+#  # An array of individual pattern declarations.
+#
+#   {
+#     #match: '/\\*.*\\*/' # A regular expression that matches some content. Optional.
+#     begin: '(\\*' # A regular expression that precedes the content. Optional.
+#     end: '\\*)' # A regular expression that follows the content. Optional.
+#     name: 'multiline.comment.pascal' # A period-delimited list of classes that will be applied to the content identified by `match`. Optional.
+#     contentName: 'comment' # A period-delimited list of classes that will be applied to the content within `begin` and `end`. Optional.
+#   }
+#   {
+#     #match: '/\\*.*\\*/' # A regular expression that matches some content. Optional.
+#     begin: '//' # A regular expression that precedes the content. Optional.
+#     end: '$' # A regular expression that follows the content. Optional.
+#     name: 'singleline.comment' # A period-delimited list of classes that will be applied to the content identified by `match`. Optional.
+#     contentName: 'comment' # A period-delimited list of classes that will be applied to the content within `begin` and `end`. Optional.
+#   }
+#   {
+#     #match: '/\\*.*\\*/' # A regular expression that matches some content. Optional.
+#     begin: '"' # A regular expression that precedes the content. Optional.
+#     end: '"' # A regular expression that follows the content. Optional.
+#     name: 'string.wide' # A period-delimited list of classes that will be applied to the content identified by `match`. Optional.
+#     contentName: 'literal.string.wide' # A period-delimited list of classes that will be applied to the content within `begin` and `end`. Optional.
+#   }
+#   {
+#     #match: '/\\*.*\\*/' # A regular expression that matches some content. Optional.
+#     begin: '\'' # A regular expression that precedes the content. Optional.
+#     end: '\'' # A regular expression that follows the content. Optional.
+#     name: 'string' # A period-delimited list of classes that will be applied to the content identified by `match`. Optional.
+#     contentName: 'literal.string' # A period-delimited list of classes that will be applied to the content within `begin` and `end`. Optional.
+#   }
+# ]

@@ -1,0 +1,10 @@
+'.source.iec61131':
+  'editor':
+    'commentStart': '// '
+    'foldEndPattern': '' #'(?ix)END_(FUNCTION(_BLOCK)?|VAR|PROGRAM|CLASS|METHOD|ACTION|CONFIGURATION)$'
+#    'increaseIndentPattern': '>>>$'
+#    'foldEndPattern' : "^\\s*<<<\\s*$";
+#    'decreaseIndentPattern': '<<<$'
+    #'foldEndPattern': '(?i)^(\\s*)?END_(FUNCTION(_BLOCK)?|VAR|PROGRAM|CLASS|METHOD|ACTION|CONFIGURATION).\\*$'
+    'increaseIndentPattern': '(?i)\\b(PROGRAM|FUNCTION|FUNCTION_BLOCK|VAR|VAR_INPUT|VAR_OUTPUT|VAR_GLOBAL|VAR_EXTERNAL|VAR_ACCESS|CLASS|METHOD|ACTION|CONFIGURATION|THEN|DO)\\b'
+    'decreaseIndentPattern': '(?i)^\\s*\\bEND_(PROGRAM|FUNCTION|FUNCTION_BLOCK|VAR|CLASS|METHOD|ACTION|CONFIGURATION|FOR|WHILE|IF)\\b\\s*$'

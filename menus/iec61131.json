@@ -1,0 +1,21 @@
+{
+  "context-menu": {
+    "atom-text-editor": []
+  },
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "IEC 61131",
+          "submenu": [
+            {
+              "label": "Toggle",
+              "command": "iec61131:toggle"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
